@@ -91,9 +91,11 @@ def signup():
         if user['username'] == new_user:
             return jsonify({'message': 'Existing username'}), 400
     
-    users.append({'username': new_user, 'password': password, 'email': email})
+    hashed_password = generate_password_hash(password)
+    users.append({'username': new_user, 'password': hashed_password, 'email': email})
 
     return jsonify({'message': 'User signed up successfully!'}), 201
+
 
 @app.route('/login', methods=['POST'])
 def login_user():

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom"; // Import useHistory if you're using React Router
+import { useNavigate } from "react-router-dom"; // Import useNavigate instead of useHistory
 
 const LoginForm = ({ switchToSignupForm }) => {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState({ msg: "" });
-    const history = useHistory(); // Initialize useHistory hook
+    const navigate = useNavigate(); // Initialize useNavigate hook
 
     const updateInput = (e) => {
         const { name, value } = e.target;
@@ -31,7 +31,7 @@ const LoginForm = ({ switchToSignupForm }) => {
             console.log(response.data);
             if (response.status === 200) {
                 setMessage({ msg: "User logged in successfully!" });
-                history.push('/products'); // Redirect to products page
+                navigate('/products'); // Use navigate to redirect
             }
         } catch (error) {
             let msg = "An error occurred during login. Please try again.";
@@ -73,3 +73,4 @@ const LoginForm = ({ switchToSignupForm }) => {
 };
 
 export default LoginForm;
+
