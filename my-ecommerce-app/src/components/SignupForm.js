@@ -35,7 +35,7 @@ const SignupForm = ({ switchToLoginForm }) => {
         }
 
         try {
-            await axios.post("http://127.0.0.1:5000/signup", {
+            await axios.post("http://127.0.0.1:5000/register", {
                 username,
                 password,
                 email,
@@ -45,11 +45,8 @@ const SignupForm = ({ switchToLoginForm }) => {
             });
         } catch (error) {
             let msg = "An error occurred during sign up. Please try again.";
-            if (
-                error.response &&
-                error.response.data.message === "Existing username"
-            ) {
-                msg = "Username is already taken!";
+            if (error.response && error.response.data.error) {
+                msg = error.response.data.error; // Adjusted to match the Flask response
             }
             setMessage({ msg });
         }
